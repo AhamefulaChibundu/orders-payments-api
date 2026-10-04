@@ -1,4 +1,4 @@
-# Orders API
+# Orders Payments API
 
 A small backend API built with Node.js, Express and PostgreSQL. It manages users and orders, and it has a webhook endpoint that receives payment events, saves them safely, and updates the order status.
 
@@ -28,7 +28,7 @@ orders-payments-api/
     config/db.js       PostgreSQL connection pool
     controllers/       What happens when a route is hit
     routes/            Which URL goes to which controller
-    validators/        Joi schemas for incoming data
+    validations/       Joi schemas for incoming data
     app.js             Builds the Express app
   server.js            Starts the server
   .env.example         Example settings (copy to .env)
@@ -42,7 +42,7 @@ Three tables, created by the migrations:
 - **orders**: `id`, `user_id` (foreign key to users), `amount` (NUMERIC(10,2)), `status` (default `pending`), `created_at`
 - **payment_events**: `id`, `event_id` (unique), `order_id` (foreign key to orders), `event_type`, `payload` (JSONB, the full webhook body), `received_at`
 
-There is also an index on `orders.user_id`, so looking up all orders for one user does not need to read the whole table.
+There is also an index on `orders.user_id`, so looking up all orders for one user does not need to read the whole table as data grows.
 
 ## Getting started
 
